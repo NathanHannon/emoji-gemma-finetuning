@@ -1,0 +1,12 @@
+# PyTorch with CUDA support (install with: pip install -r requirements.txt -f https://download.pytorch.org/whl/cu121/torch_stable.html)
+torch
+torchvision
+torchaudio
+transformers
+datasets
+trl
+peft
+bitsandbytes
+emoji
+tensorboard
+accelerate
