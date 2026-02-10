@@ -1,0 +1,202 @@
+:root {
+    --primary: #d946ef;
+    --primary-hover: #c026d3;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #0f172a;
+    --text-light: #64748b;
+    --border: #e2e8f0;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+h1 {
+    font-size: 3rem;
+    margin: 10px 0;
+    background: linear-gradient(135deg, #ff6b6b 0%, #d946ef 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.badge {
+    background: #f0abfc;
+    color: #86198f;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+p {
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow:
+        0 20px 25px -5px rgb(0 0 0 / 0.1),
+        0 8px 10px -6px rgb(0 0 0 / 0.1);
+    padding: 30px;
+    border: 1px solid var(--border);
+}
+
+.input-group label,
+.output-group label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+textarea {
+    width: 100%;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 15px;
+    font-family: inherit;
+    font-size: 1.1rem;
+    resize: none;
+    box-sizing: border-box; /* Fixes padding issues */
+    transition: border-color 0.2s;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition:
+        transform 0.1s,
+        background-color 0.2s;
+}
+
+button:hover:not(:disabled) {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background: var(--text-light);
+}
+
+.status {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.output-group {
+    margin-top: 30px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.hidden {
+    display: none;
+}
+
+.output-box {
+    background: #fdf4ff; /* Light pink background */
+    border: 2px solid #f0abfc;
+    border-radius: 12px;
+    padding: 30px;
+    font-size: 3.5rem; /* Larger font for emojis */
+    text-align: center;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.2rem; /* Give emojis some breathing room */
+    line-height: 1.2;
+}
+
+.progress-container {
+    margin-top: 20px;
+}
+
+.progress-bar {
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary);
+    width: 0%;
+    transition: width 0.3s;
+}
+
+.progress-text {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-align: center;
+    margin-top: 8px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+footer a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

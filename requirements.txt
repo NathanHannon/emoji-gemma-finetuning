@@ -10,3 +10,4 @@ bitsandbytes
 emoji
 tensorboard
 accelerate
+Pillow

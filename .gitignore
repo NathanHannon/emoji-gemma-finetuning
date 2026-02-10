@@ -134,4 +134,17 @@ tmp/
 
 # Local configuration files that shouldn't be shared
 local_config.py
-secrets.py
+secrets.
+
+#Model conversion outputs
+onnx_output_dir/
+# ONNX files
+*.onnx
+*.onnx.proto
+converted_models/
+# TensorRT files
+*.engine
+trt_models/
+merged_models/
+merged_model/chat_template.jinja
+merged_model/generation_config.json
