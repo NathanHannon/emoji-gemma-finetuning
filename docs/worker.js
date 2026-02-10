@@ -19,7 +19,8 @@ class PipelineSingleton {
                 progress_callback,
                 // Use quantized model for performance and lower memory usage!
                 dtype: 'q8',
-                // device: 'webgpu', // Try WebGPU first, fall back to wasm
+                // Since files are at the root, we rely on standard name mapping or manual override
+                // file: 'model_quantized.onnx', 
             });
         }
         return this.instance;
