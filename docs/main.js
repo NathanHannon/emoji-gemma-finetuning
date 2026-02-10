@@ -48,11 +48,25 @@ worker.addEventListener('message', (event) => {
             elements.btn.textContent = "Emojify! ✨";
             break;
 
+        case 'update':
+            // Streaming token received
+            // If this is the FIRST token, reveal values and clear box
+            if (elements.outputContainer.classList.contains('hidden')) {
+                elements.outputContainer.classList.remove('hidden');
+                elements.outputBox.textContent = "";
+            }
+            // Append token
+            elements.outputBox.textContent += data.output;
+            break;
+
         case 'complete':
             elements.btn.disabled = false;
             elements.btn.textContent = "Emojify! ✨";
-            elements.outputContainer.classList.remove('hidden');
-            elements.outputBox.textContent = output;
+            // Check if output was sent in complete (legacy) or handled by stream
+            if (output) {
+                elements.outputContainer.classList.remove('hidden');
+                elements.outputBox.textContent = output;
+            }
             break;
 
         case 'error':
