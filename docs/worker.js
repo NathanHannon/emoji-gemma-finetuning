@@ -1,14 +1,13 @@
 import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@latest';
 
 // Skip local check since we will be fetching from HF Hub
-// env.allowLocalModels = false;
-env.allowLocalModels = true;
+env.allowLocalModels = false;
+// env.allowLocalModels = true;
 
 // Define the model ID
+const MODEL_ID = 'NathanHannon/emoji_gemma3.270m';
 // FOR TESTING LOCAL: Points to the folder in the root directory (served by python server)
-const MODEL_ID = '../onnx_output_dir';
-// FOR PRODUCTION: Uncomment line below and add your HF ID
-// const MODEL_ID = 'your-username/emoji-gemma-web';
+// const MODEL_ID = '../onnx_output_dir';
 
 class PipelineSingleton {
     static task = 'text-generation';
