@@ -62,32 +62,30 @@ self.addEventListener('message', async (event) => {
             // didn't include the chat_template in tokenizer_config.json automatically.
             const prompt = `<start_of_turn>user\n${text}<end_of_turn>\n<start_of_turn>model\n`;
 
+            console.log("Generating with prompt:", prompt);
+
+            // Create a streamer to send tokens back as they are generated
+            const streamer = new TextStreamer(translator.tokenizer, {
+                skip_prompt: true,
+                skip_special_tokens: true,
+                callback_function: (token) => {
+                    console.log("Token:", token);
+                    self.postMessage({ type: 'update', output: token });
+                }
+            });
+
             const output = await translator(prompt, {
                 max_new_tokens: 20,
                 do_sample: true,
                 temperature: 0.6,
+                streamer,
             });
+            console.log("Full output:", output);
 
-            // The output is just the generated object
-            let generatedText = output[0].generated_text;
-
-            // CLEANUP LOGIC:
-            // 1. Remove the prompt if the model returned the full text (standard behavior)
-            // We strip valid special tokens or just the raw text "user...model" seen in the screenshot
-            const promptRegex = /user\s+.*?\s+model\s*/si;
-
-            if (generatedText.match(promptRegex)) {
-                generatedText = generatedText.replace(promptRegex, '');
-            } else if (generatedText.includes(prompt)) {
-                generatedText = generatedText.replace(prompt, '');
-            }
-
-            // 2. Remove any remaining structural tokens
-            generatedText = generatedText.replace(/<start_of_turn>/g, '')
-                .replace(/<end_of_turn>/g, '')
-                .replace(/model\n/g, '') // extra safety
-                .trim();
-            output: generatedText
+            self.postMessage({
+                type: 'complete',
+                output: null
+            });
         }
         catch (e) {
             console.error(e); // Log full error to console
