@@ -60,7 +60,14 @@ self.addEventListener('message', async (event) => {
 
             // NOTE: Reverting to manual prompt construction because the ONNX export 
             // didn't include the chat_template in tokenizer_config.json automatically.
-            const prompt = `<start_of_turn>user\n${text}<end_of_turn>\n<start_of_turn>model\n`;
+            
+            // We need to inject the system prompt because the model was trained with it!
+            // Based on the training script (train.py) and standard Gemma templates, 
+            // the system prompt is prepended to the user's first message.
+            const systemPrompt = "Translate this text to emoji: ";
+            
+            // Validating the exact format: "System Prompt\n\nUser Text"
+            const prompt = `<start_of_turn>user\n${systemPrompt}\n\n${text}<end_of_turn>\n<start_of_turn>model\n`;
 
             console.log("Generating with prompt:", prompt);
 
