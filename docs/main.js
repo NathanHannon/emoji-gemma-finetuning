@@ -56,7 +56,8 @@ worker.addEventListener('message', (event) => {
                 elements.outputBox.textContent = "";
             }
             // Append token
-            elements.outputBox.textContent += data.output;
+            // FIX: 'output' is destructured directly from event.data, not 'data.output'
+            elements.outputBox.textContent += output;
             break;
 
         case 'complete':
