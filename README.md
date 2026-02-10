@@ -2,6 +2,9 @@
 
 A specialized machine learning project that fine-tunes Google's Gemma 3 270M model for text-to-emoji translation using LoRA (Low-Rank Adaptation) technique. Transform natural language into contextually appropriate emojis! 
 
+## 🤖 Model
+https://huggingface.co/NathanHannon/emoji_gemma3.270m/tree/main
+
 ## 🚀 Features
 
 - **Memory-Efficient Training**: Uses 4-bit quantization and LoRA adapters to reduce VRAM usage from ~12GB to ~3GB
