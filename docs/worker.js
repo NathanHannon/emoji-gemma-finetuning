@@ -19,8 +19,8 @@ class PipelineSingleton {
                 progress_callback,
                 // Use quantized model for performance and lower memory usage!
                 dtype: 'q8',
-                // Since files are at the root, we rely on standard name mapping or manual override
-                // file: 'model_quantized.onnx', 
+                // Model files (config.json, tokenizer, onnx weights) are stored under the onnx/ subfolder
+                subfolder: 'onnx',
             });
         }
         return this.instance;
