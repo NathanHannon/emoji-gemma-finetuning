@@ -48,7 +48,7 @@ def quantize():
             "tokenizer_config.json",
             "special_tokens_map.json",
         ]:
-            src = model_dir / file
+            src = model_dir.parent / file
             if src.exists():
                 shutil.copy(src, model_dir / file)
 
