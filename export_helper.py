@@ -50,7 +50,16 @@ def merge_and_export():
     )
     print("")
     print(
-        "4. Upload the 'onnx_output_dir' to Hugging Face Hub (e.g., your-username/emoji-gemma-web)"
+        "4. Upload to Hugging Face Hub using the helper script (puts config/tokenizer at"
+    )
+    print(
+        "   the repo root and ONNX weights in the onnx/ subfolder — required by Transformers.js):"
+    )
+    print(
+        "   python upload_to_hub.py --repo your-username/your-model-name --src onnx_output_dir"
+    )
+    print(
+        "   (Authenticate first with: huggingface-cli login  OR  set HF_TOKEN env var)"
     )
     print("")
     print("5. Update 'docs/worker.js' with your new Hugging Face Model ID.")
