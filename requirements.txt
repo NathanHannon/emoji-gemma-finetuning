@@ -11,3 +11,4 @@ emoji
 tensorboard
 accelerate
 Pillow
+huggingface_hub
