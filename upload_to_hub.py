@@ -48,9 +48,24 @@ def upload(repo_id: str, src_dir: str, token: str | None = None):
 
     print(f"\nUploading to: https://huggingface.co/{repo_id}\n")
 
+    # optimum-cli export onnx places ALL files (config, tokenizer, weights) inside
+    # an onnx/ subdirectory of the target folder.  Fall back to searching there if
+    # no root-level files are found directly under src/.
+    onnx_src = src / "onnx"
+    if not onnx_src.is_dir():
+        raise FileNotFoundError(
+            f"No 'onnx/' subfolder found inside {src}. "
+            "Run export_helper.py and quantize.py first."
+        )
+
     # --- Upload root-level config / tokenizer files ---
+    # Transformers.js always fetches config.json and tokenizer files from the
+    # repo root regardless of the 'subfolder' option, so they must live there.
     for name in ROOT_FILES:
+        # Prefer src/<name>, fall back to src/onnx/<name> (optimum layout)
         candidate = src / name
+        if not candidate.exists():
+            candidate = onnx_src / name
         if candidate.exists():
             print(f"  [root]   {name}")
             api.upload_file(
@@ -60,16 +75,10 @@ def upload(repo_id: str, src_dir: str, token: str | None = None):
                 repo_type="model",
             )
 
-    # --- Upload ONNX model files into the onnx/ subfolder ---
-    onnx_src = src / "onnx"
-    if not onnx_src.is_dir():
-        raise FileNotFoundError(
-            f"No 'onnx/' subfolder found inside {src}. "
-            "Run export_helper.py and quantize.py first."
-        )
-
+    # --- Upload only the ONNX model files into the onnx/ subfolder ---
+    # Skip files that already belong at the root to avoid duplication.
     for onnx_file in sorted(onnx_src.iterdir()):
-        if onnx_file.is_file():
+        if onnx_file.is_file() and onnx_file.name not in ROOT_FILES:
             dest_path = f"onnx/{onnx_file.name}"
             print(f"  [onnx/]  {onnx_file.name}")
             api.upload_file(
