@@ -4,7 +4,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
 from config import MODEL_ID, ADAPTER_PATH
 
-
+# This script merges the trained LoRA adapter with the base model and prepares it for export to ONNX format for web deployment.
 def merge_and_export():
     print(f"Loading base model: {MODEL_ID}")
     # Load base model in full precision (float32) or float16 for merging
